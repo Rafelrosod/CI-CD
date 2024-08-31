@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nanami
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nanami
+  template:
+    metadata:
+      labels:
+        app: nanami
+    spec:
+      containers:
+        # Backend
+        - name: backend-container
+          image: 
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: "/mnt/data"
+              name: storage
+
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: app-pvc
